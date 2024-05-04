@@ -22,7 +22,17 @@ router.post('/notes', async (req, res) => {
 
   await saveNotes(notes);
 
-  res.send(200);
+  res.sendStatus(200);
+});
+
+router.delete('/notes/:id', async (req, res) => {
+  const notes = await loadNotes();
+
+  const newNotes = notes.filter((note) => note.id !== req.params.id);
+
+  await saveNotes(newNotes);
+
+  res.sendStatus(200);
 });
 
 async function loadNotes() {
